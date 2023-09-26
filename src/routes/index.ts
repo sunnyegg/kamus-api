@@ -5,7 +5,7 @@ export default (app: Elysia) => app
   .onError(ctx => {
     switch (ctx.code) {
       case "UNKNOWN":
-        ctx.set.status = 500
+        ctx.set.status = 400
         return ctx.error.message
 
       case "VALIDATION":
