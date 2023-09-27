@@ -1,28 +1,24 @@
 import type Elysia from "elysia";
 import routesKata from "./kata";
+import { CustomError } from "../custom/error";
 
 export default (app: Elysia) => app
+  .addError({
+    CustomError
+  })
   .onError(ctx => {
     switch (ctx.code) {
       case "UNKNOWN":
-        ctx.set.status = 400
-        return ctx.error.message
+        return new Response(JSON.stringify({
+          status: 500,
+          message: ctx.error.message
+        }), { status: 500 })
 
-      case "VALIDATION":
-        ctx.set.status = 400
-        return ctx.error.message
-
-      case "NOT_FOUND":
-        ctx.set.status = 404
-        return ctx.error.message
-
-      case "PARSE":
-        ctx.set.status = 400
-        return ctx.error.message
-
-      case "INTERNAL_SERVER_ERROR":
-        ctx.set.status = 500
-        return ctx.code
+      default:
+        return new Response(JSON.stringify({
+          status: ctx.error.status,
+          message: ctx.error.message
+        }), { status: ctx.error.status })
     }
   })
   .use(routesKata)

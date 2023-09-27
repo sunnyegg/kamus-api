@@ -1,10 +1,22 @@
 import type Elysia from "elysia";
-import { createOneKataController, getKataController } from "../controllers/kata";
-import { KataModel } from "../models/kata";
+import {
+  createOneKataController, deleteOneKataController,
+  getOneKataController, updateOneKataController
+} from "../controllers/kata";
+import { KataBodyModel, KataParamsModel, KataQueryModel } from "../models/kata";
 
 export default (app: Elysia) =>
   app
-    .get('/kata', ({ query }) => getKataController(query?.nama))
+    .get('/kata', ({ query }) => getOneKataController(query.nama), {
+      query: KataQueryModel
+    })
     .post('/kata', ({ body }) => createOneKataController(body), {
-      body: KataModel
+      body: KataBodyModel
+    })
+    .put('/kata/:id', ({ params, body }) => updateOneKataController(params.id, body), {
+      params: KataParamsModel,
+      body: KataBodyModel
+    })
+    .delete('/kata/:id', ({ params }) => deleteOneKataController(params.id), {
+      params: KataParamsModel
     })

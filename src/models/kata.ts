@@ -6,7 +6,20 @@ export interface IKataModel {
   arti: string
 }
 
-export const KataModel = t.Object({
+export interface IRequestKataModel {
+  nama: string
+  arti: string
+}
+
+export const KataBodyModel = t.Object({
   nama: t.String(),
   arti: t.String()
+})
+
+export const KataQueryModel = t.Object({
+  nama: t.String()
+})
+
+export const KataParamsModel = t.Object({
+  id: t.String()
 })

@@ -1,4 +1,4 @@
-GET http://localhost:3001/kata?nama=test
+GET http://localhost:3001/kata?nama=test66
 
 ###
 
@@ -6,6 +6,20 @@ POST http://localhost:3001/kata HTTP/1.1
 Content-Type: application/json
 
 {
-  "nama":"test3",
-  "arti":"memeriksa3"
+  "nama":"test66",
+  "arti":"memeriksa66"
 }
+
+###
+
+PUT http://localhost:3001/kata/6 HTTP/1.1
+Content-Type: application/json
+
+{
+  "nama":"test66",
+  "arti":"memeriksa66"
+}
+
+###
+
+DELETE  http://localhost:3001/kata/6 HTTP/1.1
