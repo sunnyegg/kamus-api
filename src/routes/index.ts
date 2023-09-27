@@ -1,6 +1,8 @@
 import type Elysia from "elysia";
 import routesKata from "./kata";
+import routesUser from "./user";
 import { CustomError } from "../custom/error";
+import { html } from "@elysiajs/html";
 
 export default (app: Elysia) => app
   .addError({
@@ -21,5 +23,29 @@ export default (app: Elysia) => app
         }), { status: ctx.error.status })
     }
   })
-  .use(routesKata)
+  .get("/", () => "📖 Kamus API")
+  .use(html())
+  .get("/login", ({ html }) => html(`
+    <html lang="en">
+        <head>
+            <title>Hello World</title>
+        </head>
+        <form action="/api/login" method="post">
+          <div class="container">
+            <label for="username"><b>Username</b></label>
+            <input type="text" placeholder="Enter Username" name="username" required>
+
+            <label for="password"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" name="password" required>
+
+            <button type="submit">Login</button>
+          </div>
+        </form>
+    </html>
+  `))
+  .group("/api", (app) =>
+    app
+      .use(routesUser)
+      .use(routesKata)
+  )
 

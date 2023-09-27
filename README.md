@@ -13,6 +13,8 @@ Seperti namanya, ini adalah sebuah API untuk mencari arti dari sebuah kata dalam
 
 ## Fitur Yang Akan Datang
 
+- [x] Authentication
+- [x] Authorization
 - [ ] Menampilkan lebih dari satu arti (jika ada)
 - [ ] Menampilkan cara ucap
 - [ ] Menampilkan jenis kata

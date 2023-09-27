@@ -8,6 +8,7 @@ const db = new Database(fileDb, { create: true });
 
 if (!exists) {
   db.run("CREATE TABLE kata (id INTEGER PRIMARY KEY AUTOINCREMENT, nama TEXT, arti TEXT)")
+  db.run("CREATE TABLE user (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT)")
 }
 
 export default db

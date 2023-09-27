@@ -1,8 +1,8 @@
-GET http://localhost:3001/kata?nama=test66
+GET http://localhost:3001/api/kata?nama=test5
 
 ###
 
-POST http://localhost:3001/kata HTTP/1.1
+POST http://localhost:3001/api/kata HTTP/1.1
 Content-Type: application/json
 
 {
@@ -12,7 +12,7 @@ Content-Type: application/json
 
 ###
 
-PUT http://localhost:3001/kata/6 HTTP/1.1
+PUT http://localhost:3001/api/kata/6 HTTP/1.1
 Content-Type: application/json
 
 {
@@ -22,4 +22,22 @@ Content-Type: application/json
 
 ###
 
-DELETE  http://localhost:3001/kata/6 HTTP/1.1
+DELETE  http://localhost:3001/api/kata/6 HTTP/1.1
+
+###
+POST http://localhost:3001/api/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "username":"sunny",
+  "password":"sunny123"
+}
+
+###
+POST http://localhost:3001/api/register HTTP/1.1
+Content-Type: application/json
+
+{
+  "username":"sunny",
+  "password":"sunny123"
+}

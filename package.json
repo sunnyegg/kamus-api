@@ -7,6 +7,10 @@
     "start": "bun run src/index.ts"
   },
   "dependencies": {
+    "@elysiajs/cookie": "^0.7.0",
+    "@elysiajs/cors": "^0.7.0",
+    "@elysiajs/html": "^0.7.0",
+    "@elysiajs/jwt": "^0.7.0",
     "elysia": "latest"
   },
   "devDependencies": {
