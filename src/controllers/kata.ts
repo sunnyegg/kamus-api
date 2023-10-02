@@ -1,5 +1,5 @@
 import { createOneKata, deleteOneKata, getOneKata, updateOneKata } from "../repository/kata"
-import { IRequestKataModel } from "../models/kata";
+import { IKataModel, IRequestKataModel } from "../models/kata";
 import { CustomError } from "../custom/error";
 import { CustomResponse } from "../custom/response";
 
@@ -9,11 +9,18 @@ export const getOneKataController = (nama: string): Response => {
     throw new CustomError(404, `kata: '${nama}' notFound`)
   }
 
+  kata.arti = JSON.parse(kata.arti) // string to array
+
   return CustomResponse(200, "OK", kata)
 }
 
 export const createOneKataController = (body: IRequestKataModel): Response => {
-  const res = createOneKata(body)
+  const data: IKataModel = {
+    ...body,
+    arti: JSON.stringify(body.arti), // array to string
+  }
+
+  const res = createOneKata(data)
   if (res === 'DUPLICATE') {
     throw new CustomError(400, `kata: '${body.nama}' duplicate`)
   }
@@ -22,7 +29,12 @@ export const createOneKataController = (body: IRequestKataModel): Response => {
 }
 
 export const updateOneKataController = (id: string, body: IRequestKataModel): Response => {
-  const res = updateOneKata(id, body)
+  const data: IKataModel = {
+    ...body,
+    arti: JSON.stringify(body.arti) // array to string
+  }
+
+  const res = updateOneKata(id, data)
   if (res === 'NOT_FOUND') {
     throw new CustomError(404, `kata with id: '${id}' notFound`)
   }

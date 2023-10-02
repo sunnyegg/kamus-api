@@ -15,10 +15,10 @@ Seperti namanya, ini adalah sebuah API untuk mencari arti dari sebuah kata dalam
 
 - [x] Authentication
 - [x] Authorization
-- [ ] Menampilkan lebih dari satu arti (jika ada)
-- [ ] Menampilkan cara ucap
-- [ ] Menampilkan jenis kata
-- [ ] Menampilkan contoh penggunaan kata
+- [x] Menampilkan lebih dari satu arti (jika ada)
+- [x] Menampilkan cara ucap
+- [x] Menampilkan jenis kata
+- [x] Menampilkan contoh penggunaan kata
 - [ ] Mencari kata di web KBBI jika kata tidak ditemukan di dalam database, kemudian menyimpannya
 
 ## Development

@@ -1,8 +1,8 @@
 import db from "../configs/db"
-import { IKataModel, IRequestKataModel } from "../models/kata"
+import { IKataModel } from "../models/kata"
 
 export const getOneKata = (nama: string): IKataModel | "NOT_FOUND" => {
-  let query = "SELECT id, nama, arti FROM kata WHERE nama = ?"
+  let query = "SELECT * FROM kata WHERE nama = ?"
 
   const stmt = db.prepare(query)
   const res: any = stmt.get(nama)
@@ -13,26 +13,29 @@ export const getOneKata = (nama: string): IKataModel | "NOT_FOUND" => {
   const data: IKataModel = {
     id: res.id,
     nama: res.nama,
-    arti: res.arti
+    arti: res.arti,
+    pengucapan: res.pengucapan,
+    jenis: res.jenis,
+    contoh: res.contoh,
   }
 
   return data
 }
 
-export const createOneKata = (data: IRequestKataModel): "OK" | "DUPLICATE" => {
+export const createOneKata = (data: IKataModel): "OK" | "DUPLICATE" => {
   const checkKata = getOneKata(data.nama)
   if (checkKata !== 'NOT_FOUND') {
     return "DUPLICATE"
   }
 
-  let query = "INSERT INTO kata (nama, arti) VALUES (?, ?)";
+  let query = "INSERT INTO kata (nama, arti, pengucapan, jenis, contoh) VALUES (?, ?, ?, ?, ?)";
   const stmt = db.prepare(query)
-  stmt.run(data.nama, data.arti)
+  stmt.run(data.nama, data.arti, data.pengucapan, data.jenis, data.contoh)
 
   return "OK"
 }
 
-export const updateOneKata = (id: string, data: IRequestKataModel): "OK" | "NOT_FOUND" | "DUPLICATE" => {
+export const updateOneKata = (id: string, data: IKataModel): "OK" | "NOT_FOUND" | "DUPLICATE" => {
   const checkKata = getOneKataById(id)
   if (checkKata === 'NOT_FOUND') {
     return "NOT_FOUND"
@@ -43,9 +46,9 @@ export const updateOneKata = (id: string, data: IRequestKataModel): "OK" | "NOT_
     return "DUPLICATE"
   }
 
-  let query = "UPDATE kata SET nama = ?, arti = ? WHERE id = ?";
+  let query = "UPDATE kata SET nama = ?, arti = ?, pengucapan = ?, jenis = ?, contoh = ? WHERE id = ?";
   const stmt = db.prepare(query)
-  stmt.run(data.nama, data.arti, id)
+  stmt.run(data.nama, data.arti, data.pengucapan, data.jenis, data.contoh, id)
 
   return "OK"
 }
@@ -75,7 +78,10 @@ const getOneKataById = (id: string): IKataModel | "NOT_FOUND" => {
   const data: IKataModel = {
     id: res.id,
     nama: res.nama,
-    arti: res.arti
+    arti: res.arti,
+    pengucapan: res.pengucapan,
+    jenis: res.jenis,
+    contoh: res.contoh,
   }
 
   return data
